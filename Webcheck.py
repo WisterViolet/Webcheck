@@ -2,6 +2,7 @@ import datetime
 import requests
 
 flag = 0
+changeflag = 0
 checksite = 'http://www.official-robocon.com/kosen/'
 checktime = 0
 origint = requests.get(checksite)
