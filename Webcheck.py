@@ -24,7 +24,7 @@ def Post(result, month, day, hour, changeflag):
         po.statuses.update(status=al)
     if hour == 0:
         up = ('【テスト】\n' + str(month) + '月' + str(day-1) + '日、\n' +
-              Webconf.checksite + '\nは' + str(changeflag) +
+              str(Webconf.checksite) + '\nは' + str(changeflag) +
               '回更新されました(もしかしたら間違いかも)')
         po.statuses.update(status=up)
 
@@ -43,7 +43,7 @@ def main():
             rest = requests.get(checksite)
             if origint.text != rest.text:
                 result = 1
-                origint = requests.get(checksite)
+                origint = requests.get(Webconfchecksite)
             else:
                 result = 0
         if now.minute == checktime+1:
