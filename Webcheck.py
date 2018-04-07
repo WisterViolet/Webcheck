@@ -43,7 +43,7 @@ def main():
             rest = requests.get(checksite)
             if origint.text != rest.text:
                 result = 1
-                origint = requests.get(Webconfchecksite)
+                origint = requests.get(Webconf.checksite)
             else:
                 result = 0
         if now.minute == checktime+1:
