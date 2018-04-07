@@ -48,9 +48,9 @@ def main():
                 result = 0
         if now.minute == checktime+1:
             flag = 1
+        Post(result, now.month, now.day, now.hour, changeflag)
         if now.hour == 0:
             changeflag = 0
-        Post(result, now.month, now.day, now.hour, changeflag)
     return 0
 
 if __name__ == '__main__':
