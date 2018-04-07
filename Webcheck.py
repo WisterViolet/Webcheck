@@ -39,7 +39,7 @@ def main():
         now = datetime.datetime.now()
         if (now.minute == checktime and flag == 0):
             flag = 1
-            changeflag++
+            changeflag += 1
             rest = requests.get(checksite)
             if origint.text != rest.text:
                 result = 1
