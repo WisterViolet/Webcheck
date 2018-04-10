@@ -1,3 +1,4 @@
+import os
 import sys
 import datetime
 import requests
@@ -11,6 +12,17 @@ CS:Consumer_Secret_Key
 AT:Access_Token
 ATS:Access_Token_Secret
 '''
+
+
+def daemonize():
+    pid = os.fork()
+    if pid > 0:
+        pid_file = open('/var/run/Webcheck.pid')
+        pid_file.write(str(pid)+"\n")
+        pid_file.close()
+        sys.exit()
+    if pid == 0:
+        Post()
 
 
 def Post(result, month, day, hour, changeflag):
@@ -29,7 +41,7 @@ def Post(result, month, day, hour, changeflag):
         po.statuses.update(status=up)
 
 
-def main():
+def get():
     flag = 0
     changeflag = 0
     checktime = 0
@@ -54,4 +66,5 @@ def main():
     return 0
 
 if __name__ == '__main__':
-    sys.exit(main())
+    while True:
+        daemonize()
