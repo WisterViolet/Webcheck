@@ -4,6 +4,7 @@ import datetime
 import requests
 import twitter
 import Webconf
+import time
 '''
 In Webconf
 checksite:URL of site you want to monitor
@@ -17,12 +18,12 @@ ATS:Access_Token_Secret
 def daemonize():
     pid = os.fork()
     if pid > 0:
-        pid_file = open('/var/run/Webcheck.pid')
+        pid_file = open('/var/run/Webcheck.pid', mode='w')
         pid_file.write(str(pid)+"\n")
         pid_file.close()
         sys.exit()
     if pid == 0:
-        Post()
+        get()
 
 
 def Post(result, month, day, hour, changeflag):
@@ -46,7 +47,12 @@ def get():
     changeflag = 0
     checktime = 0
     result = 0
-    origint = requests.get(Webconf.checksite)
+    try:
+        origint = requests.get(Webconf.checksite)
+    except:
+        print('conection failed')
+        time.sleep(30)
+        get()
     while True:
         now = datetime.datetime.now()
         if (now.minute == checktime and flag == 0):
