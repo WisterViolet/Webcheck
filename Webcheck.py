@@ -26,19 +26,21 @@ def daemonize():
         get()
 
 
-def Post(result, month, day, hour, changeflag):
+def Post(result, month, day, hour, , minute, changeflag):
     auth = twitter.OAuth(consumer_key=Webconf.CK,
                          consumer_secret=Webconf.CS,
                          token=Webconf.AT,
                          token_secret=Webconf.ATS)
     po = twitter.Twitter(auth=auth)
     if result == 1:
-        al = ('【テスト】\n' + str(Webconf.checksite) + '\nの更新を検出しました(もしかしたら間違いかも)')
+        al = (str(Webconf.checksite) + '\nwas Changed\nChecktime:' +
+              str(month) + '/' + str(day) + ' ' + str(hour) +
+              ':' + str(minute))
         po.statuses.update(status=al)
     if hour == 0:
-        up = ('【テスト】\n' + str(month) + '月' + str(day-1) + '日、\n' +
-              str(Webconf.checksite) + '\nは' + str(changeflag) +
-              '回更新されました(もしかしたら間違いかも)')
+        up = (str(month) + '/' + str(day-1) + '\n' +
+              str(Webconf.checksite) + ' chenged ' + str(changeflag) +
+              ' times')
         po.statuses.update(status=up)
 
 
@@ -65,10 +67,13 @@ def get():
             else:
                 result = 0
         if now.minute == checktime+1:
-            flag = 1
-        Post(result, now.month, now.day, now.hour, changeflag)
+            flag = 0
+            checktime += 15
+            checktime %= 60
+        Post(result, now.month, now.day, now.hour, now.minute, changeflag)
         if now.hour == 0:
             changeflag = 0
+        time.sleep(45)
     return 0
 
 if __name__ == '__main__':
