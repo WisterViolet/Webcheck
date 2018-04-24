@@ -26,7 +26,7 @@ def Post(result, month, day, hour,  minute, changeflag):
                          token_secret=keyAPI.ATS)
     po = twitter.Twitter(auth=auth)
     if result == 1:
-        al = ('[Warning]It is Test\n' + str(Webconf.checksite) + '\nwas Changed\nChecktime:' +
+        al = (str(Webconf.checksite) + '\nwas Changed\nChecktime:' +
               str(month) + '/' + str(day) + ' ' + str(hour) +
               ':' + str(minute))
         po.statuses.update(status=al)
