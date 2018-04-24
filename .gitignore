@@ -101,5 +101,5 @@ ENV/
 .mypy_cache/
 
 #APIkey
-Webconf.py
+keyAPI.py
 
