@@ -57,6 +57,8 @@ def get():
                 result = 0
             del ht
             Post(result, now.month, now.day, now.hour, now.minute, changef)
+        if Webconf.timeloger != 'NULL':
+            Webconf.logstamp(now.month, now.day, now.hour, now.minute)
         time.sleep(30)
     return 0
 if __name__ == '__main__':
